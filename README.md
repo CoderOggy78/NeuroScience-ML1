@@ -4,6 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/CoderOggy78/NeuroScience-ML1/actions/workflows/ci.yml/badge.svg)](https://github.com/CoderOggy78/NeuroScience-ML1/actions/workflows/ci.yml)
 [![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](notebooks/multimodal_neural_latent_dynamics.ipynb)
 
 An advanced deep learning framework for fusing continuous whole-brain **high-field fMRI** ($0.5\,\text{Hz}$, high spatial resolution) with **high-density multi-electrode array spike trains and LFP** ($50\,\text{Hz} - 1\,\text{kHz}$, sparse spatial resolution) to reconstruct latent cognitive states and continuous kinematic movement in real time.
@@ -133,8 +134,16 @@ Quantitative comparison of decoding accuracy and Transfer Degradation Scores acr
 NeuroScience-ML1/
 ├── README.md
 ├── LICENSE                             # MIT License
+├── pyproject.toml                      # Standard PEP 517 build and packaging metadata
 ├── requirements.txt                    # Python dependencies
 ├── run_pipeline.py                     # Complete end-to-end training and benchmark script
+├── .github/
+│   └── workflows/
+│       └── ci.yml                      # GitHub Actions automated CI testing workflow
+├── tests/
+│   ├── test_data_loader.py             # Data engine & coordinate tests
+│   ├── test_models.py                  # Spatial GNN, SSM, Transformer, & GRL tests
+│   └── test_evaluation.py              # Benchmark metrics & baseline tests
 ├── scripts/
 │   ├── download_real_data.py           # Authenticated downloader from Allen S3, ABIDE, OpenNeuro
 │   └── build_and_run_notebook.py       # Automated notebook generation and execution preprocessor
@@ -176,16 +185,20 @@ NeuroScience-ML1/
 git clone https://github.com/CoderOggy78/NeuroScience-ML1.git
 cd NeuroScience-ML1
 
-# 2. Install dependencies
+# 2. Install dependencies or editable package
 pip install -r requirements.txt
+pip install -e .
 
-# 3. Download open-access datasets from Allen Brain Observatory, ABIDE, and OpenNeuro
+# 3. Run automated unit test suite
+pytest
+
+# 4. Download open-access datasets from Allen Brain Observatory, ABIDE, and OpenNeuro
 python3 scripts/download_real_data.py
 
-# 4. Run the end-to-end training, baselines, and evaluation pipeline
+# 5. Run the end-to-end training, baselines, and evaluation pipeline
 python3 run_pipeline.py
 
-# 5. Launch or build the fully executed research notebook
+# 6. Launch or build the fully executed research notebook
 python3 scripts/build_and_run_notebook.py
 # Or inspect notebooks/multimodal_neural_latent_dynamics.ipynb directly in JupyterLab
 ```
