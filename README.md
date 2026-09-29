@@ -43,46 +43,6 @@ An advanced deep learning framework for fusing continuous whole-brain **high-fie
 
 ---
 
-## Technical Architecture
-
-```mermaid
-graph TD
-    subgraph Electrophysiology Stream
-        S[High-Density Spike Trains<br>50 Hz, 48 Units] --> GNN_S[3D Coordinate-Aware GNN<br>CCF microns]
-        L[Continuous LFP Traces<br>theta/beta Rhythms] --> GNN_S
-        S --> DIR_S[Direct Channel Residual<br>Directional Tuning]
-        L --> DIR_S
-        GNN_S & DIR_S --> FUSE_S[Spike Spatial Representation]
-    end
-
-    subgraph fMRI Hemodynamic Stream
-        F[Whole-Brain fMRI BOLD<br>0.5 Hz, 116 AAL ROIs] --> GNN_F[3D Anatomical Parcel GNN<br>MNI mm]
-        F --> DIR_F[Direct ROI Residual]
-        GNN_F & DIR_F --> FUSE_F[fMRI Spatial Representation]
-    end
-
-    subgraph Dynamical State-Space Engine
-        FUSE_S --> SSM[State-Space Manifold Generator<br>Continuous dz/dt = f(z, u)]
-        SSM --> MAN_Z[Latent Neural Manifold z_t]
-    end
-
-    subgraph Multi-Modal Cross-Attention Fusion
-        MAN_Z -->|Queries Q_spike| X_ATTN[Cross-Modal Attention Transformer]
-        FUSE_F -->|Keys & Values K, V_fmri| X_ATTN
-        BIAS[Continuous Temporal Relative Bias<br>Canonical HRF Delay 4-6s] --> X_ATTN
-        X_ATTN --> FUSED_REP[Aligned Latent Dynamics h_fused]
-    end
-
-    subgraph Multi-Task Objectives & Decoders
-        FUSED_REP --> KIN_DEC[Kinematic Decoder<br>2D Velocity vx, vy]
-        FUSED_REP --> PSTH_DEC[Poisson PSTH Firing Rate Head]
-        FUSED_REP --> DANN[Domain Adversarial Head<br>Gradient Reversal Layer]
-        FUSE_S & FUSE_F --> CPC[InfoNCE Contrastive Predictive Coding]
-    end
-```
-
----
-
 ## Quantitative Benchmark Results
 
 Evaluation across $N=60$ in-domain test segments and $N=80$ out-of-domain drifted segments:
