@@ -1,0 +1,34 @@
+[
+  {
+    "Model": "Linear Ridge Decoder",
+    "In_Domain_R2": -0.046905457973480225,
+    "In_Domain_RMSE": 8.116052483958152,
+    "Drift_R2": -0.10755491256713867,
+    "Drift_RMSE": 8.343437731896557,
+    "TDS_%": 100.0
+  },
+  {
+    "Model": "Single-Modality LSTM",
+    "In_Domain_R2": 0.961097776889801,
+    "In_Domain_RMSE": 1.5486640217879315,
+    "Drift_R2": -0.5668919086456299,
+    "Drift_RMSE": 9.938214738202088,
+    "TDS_%": 158.98379148062781
+  },
+  {
+    "Model": "Single-Modality Transformer",
+    "In_Domain_R2": 0.8619898557662964,
+    "In_Domain_RMSE": 2.9385007411663113,
+    "Drift_R2": -0.263283371925354,
+    "Drift_RMSE": 8.923491911003348,
+    "TDS_%": 130.54367405418
+  },
+  {
+    "Model": "Proposed Multimodal Transformer + SSM (Ours)",
+    "In_Domain_R2": 0.8174299597740173,
+    "In_Domain_RMSE": 3.3555548660187786,
+    "Drift_R2": -0.33094096183776855,
+    "Drift_RMSE": 9.15951490292122,
+    "TDS_%": 140.48554348671766
+  }
+]
